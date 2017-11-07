@@ -1,1 +1,1 @@
-export { Example } from "./Example";
+export { createVuexAsyncModule } from "./vuex-async-module";

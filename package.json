@@ -1,6 +1,6 @@
 {
-  "name": "ts-library-starter",
-  "version": "0.1.0",
+  "name": "vuex-async-module",
+  "version": "0.0.1",
   "description": "Example git project that is used for typescript libraries as a starter pack",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -24,10 +24,9 @@
     "url": "git+https://github.com/DxCx/ts-library-starter.git"
   },
   "keywords": [
-    "example",
+    "vuex",
     "typescript",
     "library",
-    "starter",
     "webpack",
     "browserify",
     "dts-bundle",
@@ -60,14 +59,23 @@
     "webpack": "3.5.5",
     "webpack-node-externals": "^1.6.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.17.0",
+    "change-case": "^3.0.1",
+    "vue": "^2.5.3"
+  },
   "jest": {
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "mapCoverage": true,
-    "collectCoverageFrom": ["src/**/*.ts"],
-    "coveragePathIgnorePatterns": ["\/__tests__\/", "\/node_modules\/"],
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/__tests__/",
+      "/node_modules/"
+    ],
     "testEnvironment": "node",
     "testRegex": "__tests__/.*\\.spec\\.ts$",
     "moduleFileExtensions": [

@@ -1,5 +1,4 @@
 import { camelCase, upperCaseFirst } from "change-case";
-// import Vue from "vue";
 import doAsync from "./async-util";
 
 interface IAsyncType {
@@ -10,6 +9,17 @@ interface IAsyncType {
     loadingKey: string;
     statusCode: string;
     stateKey: string;
+}
+
+type DataCallbackFunc = (data: object, state: object) => object;
+type SuccessCallbackFunc = (data: object) => any;
+type ErrorCallbackFunc = (error: any) => any;
+
+interface IAsyncActionPayload {
+    axiosConfig: object;
+    dataCallback: DataCallbackFunc;
+    successCallback: SuccessCallbackFunc;
+    errorCallback: ErrorCallbackFunc;
 }
 
 const createAsyncType = (typeName: string): IAsyncType => {
@@ -62,8 +72,8 @@ const createGetters = (name: string) => {
 
 const createActions = (NAME: string, TYPE: IAsyncType) => {
     const actions = {};
-    actions[camelCase(`get${NAME}Async`)] = (store, payload) => {
-        const {axiosConfig, dataCallback, successCallback, errorCallback} = payload;
+    actions[camelCase(`get${NAME}Async`)] = (store, payload: IAsyncActionPayload) => {
+        const { axiosConfig, dataCallback, successCallback, errorCallback } = payload;
         return doAsync(
             store, {
             axiosConfig,

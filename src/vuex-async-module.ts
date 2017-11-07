@@ -1,5 +1,5 @@
 import { camelCase, upperCaseFirst } from "change-case";
-import Vue from "vue";
+// import Vue from "vue";
 import doAsync from "./async-util";
 
 interface IAsyncType {
@@ -29,15 +29,20 @@ const createMutations = (TYPE: IAsyncType) => {
     mutations[TYPE.BASE] = (state, payload) => {
         switch (payload.type) {
             case TYPE.PENDING:
-                return Vue.set(state, TYPE.loadingKey, payload.value);
+                // return Vue.set(state, TYPE.loadingKey, payload.value);
+                return state[TYPE.loadingKey] = payload.value;
 
             case TYPE.SUCCESS:
-                Vue.set(state, TYPE.statusCode, payload.statusCode);
-                return Vue.set(state, TYPE.stateKey, payload.data);
+                // Vue.set(state, TYPE.statusCode, payload.statusCode);
+                // return Vue.set(state, TYPE.stateKey, payload.data);
+                state[TYPE.statusCode] = payload.statusCode;
+                return state[TYPE.stateKey] = payload.data;
 
             case TYPE.FAILURE:
-                Vue.set(state, TYPE.statusCode, payload.statusCode);
-                return Vue.set(state, TYPE.stateKey, null);
+                // Vue.set(state, TYPE.statusCode, payload.statusCode);
+                // return Vue.set(state, TYPE.stateKey, null);
+                state[TYPE.statusCode] = payload.statusCode;
+                return state[TYPE.stateKey] = null;
         }
     };
     return mutations;

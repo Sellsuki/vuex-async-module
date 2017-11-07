@@ -61,8 +61,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
-    "change-case": "^3.0.1",
-    "vue": "^2.5.3"
+    "change-case": "^3.0.1"
   },
   "jest": {
     "transform": {

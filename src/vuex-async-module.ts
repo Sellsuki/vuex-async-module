@@ -36,25 +36,25 @@ const createAsyncType = (typeName: string): IAsyncType => {
     };
 };
 
-const createMutations = (TYPE: IAsyncType) => {
+const createMutations = (type: IAsyncType) => {
     const mutations = {};
-    mutations[TYPE.BASE] = (state, payload) => {
+    mutations[type.BASE] = (state, payload) => {
         switch (payload.type) {
-            case TYPE.PENDING:
+            case type.PENDING:
                 // return Vue.set(state, TYPE.loadingKey, payload.value);
-                return state[TYPE.loadingKey] = payload.value;
+                return state[type.loadingKey] = payload.value;
 
-            case TYPE.SUCCESS:
+            case type.SUCCESS:
                 // Vue.set(state, TYPE.statusCode, payload.statusCode);
                 // return Vue.set(state, TYPE.stateKey, payload.data);
-                state[TYPE.statusCode] = payload.statusCode;
-                return state[TYPE.stateKey] = payload.data;
+                state[type.statusCode] = payload.statusCode;
+                return state[type.stateKey] = payload.data;
 
-            case TYPE.FAILURE:
+            case type.FAILURE:
                 // Vue.set(state, TYPE.statusCode, payload.statusCode);
                 // return Vue.set(state, TYPE.stateKey, null);
-                state[TYPE.statusCode] = payload.statusCode;
-                return state[TYPE.stateKey] = null;
+                state[type.statusCode] = payload.statusCode;
+                return state[type.stateKey] = null;
         }
     };
     return mutations;
@@ -72,7 +72,7 @@ const createGetters = (name: string) => {
     return getters;
 };
 
-const createActions = (NAME: string, TYPE: IAsyncType) => {
+const createActions = (name: string, type: IAsyncType) => {
     const actions = {};
     const action: ActionFunc = (store, payload: IAsyncActionPayload) => {
         const { axiosConfig, dataCallback, successCallback, errorCallback } = payload;
@@ -81,11 +81,11 @@ const createActions = (NAME: string, TYPE: IAsyncType) => {
             axiosConfig,
             dataCallback,
             errorCallback,
-            mutationTypes: TYPE,
+            mutationTypes: type,
             successCallback,
         });
     };
-    actions[camelCase(`get${NAME}Async`)] = action;
+    actions[camelCase(`get${name}Async`)] = action;
     return actions;
 };
 

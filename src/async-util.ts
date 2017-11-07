@@ -2,11 +2,6 @@ import axios from "axios";
 
 const doAsync = (store, { axiosConfig, dataCallback, successCallback, errorCallback, mutationTypes }) => {
   store.commit(mutationTypes.BASE, { type: mutationTypes.PENDING, value: true });
-
-  if (!axiosConfig.method) {
-    axiosConfig.method = "get";
-  }
-
   return axios(axiosConfig)
     .then((response) => {
       let data = response;

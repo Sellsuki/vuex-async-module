@@ -11,6 +11,8 @@ interface IAsyncType {
     stateKey: string;
 }
 
+type ActionFunc = (store, payload: IAsyncActionPayload) => any;
+
 type DataCallbackFunc = (data: object, state: object) => object;
 type SuccessCallbackFunc = (data: object) => any;
 type ErrorCallbackFunc = (error: any) => any;
@@ -72,7 +74,7 @@ const createGetters = (name: string) => {
 
 const createActions = (NAME: string, TYPE: IAsyncType) => {
     const actions = {};
-    actions[camelCase(`get${NAME}Async`)] = (store, payload: IAsyncActionPayload) => {
+    const action: ActionFunc = (store, payload: IAsyncActionPayload) => {
         const { axiosConfig, dataCallback, successCallback, errorCallback } = payload;
         return doAsync(
             store, {
@@ -83,6 +85,7 @@ const createActions = (NAME: string, TYPE: IAsyncType) => {
             successCallback,
         });
     };
+    actions[camelCase(`get${NAME}Async`)] = action;
     return actions;
 };
 

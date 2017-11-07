@@ -1,5 +1,9 @@
 # vuex-async-module
 
+[![Coverage Status](https://coveralls.io/repos/github/Sellsuki/vuex-async-module/badge.svg?branch=master)](https://coveralls.io/github/Sellsuki/vuex-async-module?branch=master)
+
+[![Build Status](https://travis-ci.org/Sellsuki/vuex-async-module.svg?branch=master)](https://travis-ci.org/Sellsuki/vuex-async-module)
+
 ## Install
 
 ```bash

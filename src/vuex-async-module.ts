@@ -37,7 +37,7 @@ const createAsyncType = (typeName: string): IAsyncType => {
 };
 
 const createMutations = (type: IAsyncType) => {
-    const mutations = {};
+    const mutations: any = {};
     mutations[type.BASE] = (state, payload) => {
         switch (payload.type) {
             case type.PENDING:
@@ -61,7 +61,7 @@ const createMutations = (type: IAsyncType) => {
 };
 
 const createGetters = (name: string) => {
-    const getters = {};
+    const getters: any = {};
     getters[camelCase(name)] = (state) => {
         return {
             data: state.data,
@@ -73,7 +73,7 @@ const createGetters = (name: string) => {
 };
 
 const createActions = (name: string, type: IAsyncType) => {
-    const actions = {};
+    const actions: any = {};
     const action: ActionFunc = (store, payload: IAsyncActionPayload) => {
         const { axiosConfig, dataCallback, successCallback, errorCallback } = payload;
         return doAsync(
@@ -85,6 +85,7 @@ const createActions = (name: string, type: IAsyncType) => {
             successCallback,
         });
     };
+
     actions[camelCase(`get${name}Async`)] = action;
     return actions;
 };
@@ -99,7 +100,7 @@ export const createVuexAsyncModule = (name: string) => {
         state: {
             data: null,
             pending: false,
-            statusCode: null,
+            statusCode: 0,
         },
     };
 };

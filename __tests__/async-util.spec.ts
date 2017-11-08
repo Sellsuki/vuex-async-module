@@ -37,4 +37,21 @@ describe("doAsync", () => {
             expect(successCallback.mock.calls.length).toBe(1)
         })
     })
+
+    it("Should call errorCallback", () => {
+        let mock = new MockAdapter(axios)
+        mock.onAny().reply(500, [])
+        let errorCallback = jest.fn()
+        let options = {
+            axiosConfig: {},
+            dataCallback: {},
+            successCallback: {},
+            errorCallback,
+            mutationTypes: { BASE: '', PEDNING: '' } 
+        }
+        
+        doAsync(store, options).then(() => {
+            expect(errorCallback.mock.calls.length).toBe(1)
+        })
+    })
 })

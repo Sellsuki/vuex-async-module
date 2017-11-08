@@ -10,7 +10,7 @@ describe("doAsync", () => {
     beforeEach(() => {
         store = {
             state: {},
-            commit: jest.fn()
+            commit: jest.fn(),
         }
     });
 
@@ -19,39 +19,74 @@ describe("doAsync", () => {
     });
 
     it("Should call dataCallback and successCallback", () => {
-        let mock = new MockAdapter(axios)
-        mock.onAny().reply(200, [])
+        const mock = new MockAdapter(axios);
+        mock.onAny().reply(200, []);
 
-        let dataCallback = jest.fn()
-        let successCallback = jest.fn()
-        let options = {
+        const dataCallback = jest.fn();
+        const successCallback = jest.fn();
+        const errorCallback = jest.fn();
+        const options = {
             axiosConfig: {},
             dataCallback,
+            errorCallback,
+            mutationTypes: { BASE: "", PEDNING: "" },
             successCallback,
-            errorCallback: {},
-            mutationTypes: { BASE: '', PEDNING: '' } 
-        }
-        
+        };
         doAsync(store, options).then(() => {
-            expect(dataCallback.mock.calls.length).toBe(1)
-            expect(successCallback.mock.calls.length).toBe(1)
-        })
-    })
+            expect(dataCallback.mock.calls.length).toBe(1);
+            expect(successCallback.mock.calls.length).toBe(1);
+        });
+    });
+
+    it("Should't call dataCallback and successCallback when not passing functions to it.", () => {
+        const mock = new MockAdapter(axios);
+        mock.onAny().reply(200, []);
+
+        const dataCallback = jest.fn();
+        const successCallback = jest.fn();
+
+        const options = {
+            axiosConfig: {},
+            mutationTypes: { BASE: "", PEDNING: "" },
+        };
+        doAsync(store, options).then(() => {
+            expect(dataCallback.mock.calls.length).toBe(0);
+            expect(successCallback.mock.calls.length).toBe(0);
+        });
+    });
 
     it("Should call errorCallback", () => {
-        let mock = new MockAdapter(axios)
-        mock.onAny().reply(500, [])
-        let errorCallback = jest.fn()
-        let options = {
+        const mock = new MockAdapter(axios);
+        mock.onAny().reply(500, []);
+
+        const dataCallback = jest.fn();
+        const successCallback = jest.fn();
+        const errorCallback = jest.fn();
+        const options = {
             axiosConfig: {},
-            dataCallback: {},
-            successCallback: {},
+            dataCallback,
             errorCallback,
-            mutationTypes: { BASE: '', PEDNING: '' } 
-        }
-        
+            mutationTypes: { BASE: "", PEDNING: "" },
+            successCallback,
+        };
+
         doAsync(store, options).then(() => {
-            expect(errorCallback.mock.calls.length).toBe(1)
-        })
-    })
-})
+            expect(errorCallback.mock.calls.length).toBe(1);
+        });
+    });
+
+    it("Should't call errorCallback when not passing function to it.", () => {
+        const mock = new MockAdapter(axios);
+        mock.onAny().reply(500, []);
+
+        const errorCallback = jest.fn();
+
+        const options = {
+            axiosConfig: {},
+            mutationTypes: { BASE: "", PEDNING: "" },
+        };
+        doAsync(store, options).then(() => {
+            expect(errorCallback.mock.calls.length).toBe(0);
+        });
+    });
+});

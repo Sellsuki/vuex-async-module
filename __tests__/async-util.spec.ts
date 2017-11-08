@@ -1,17 +1,17 @@
 "use strict";
 
+import axios from "axios";
+import * as MockAdapter from "axios-mock-adapter";
 import "jest";
 import doAsync from "../src/async-util";
-import axios from 'axios';
-import * as MockAdapter from 'axios-mock-adapter';
 
 describe("doAsync", () => {
-    let store
+    let store;
     beforeEach(() => {
         store = {
-            state: {},
             commit: jest.fn(),
-        }
+            state: {},
+        };
     });
 
     it("Should be a function", () => {

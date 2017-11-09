@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const doAsync = (store, { axiosConfig, dataCallback, successCallback, errorCallback, mutationTypes }): any => {
+const doAsync = (store, { axiosConfig, dataCallback, mutationTypes }): any => {
   store.commit(mutationTypes.BASE, { type: mutationTypes.PENDING, value: true });
   return axios(axiosConfig)
     .then((response) => {

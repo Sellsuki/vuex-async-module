@@ -20,8 +20,6 @@ type ErrorCallbackFunc = (error: any) => any;
 interface IAsyncActionPayload {
     axiosConfig: object;
     dataCallback: DataCallbackFunc;
-    successCallback: SuccessCallbackFunc;
-    errorCallback: ErrorCallbackFunc;
 }
 
 const createAsyncType = (typeName: string): IAsyncType => {
@@ -75,14 +73,10 @@ const createGetters = (name: string) => {
 const createActions = (name: string, type: IAsyncType) => {
     const actions: any = {};
     const action: ActionFunc = (store, payload: IAsyncActionPayload) => {
-        const { axiosConfig, dataCallback, successCallback, errorCallback } = payload;
         return doAsync(
             store, {
-            axiosConfig,
-            dataCallback,
-            errorCallback,
+            ...payload,
             mutationTypes: type,
-            successCallback,
         });
     };
 

@@ -18,23 +18,19 @@ describe("doAsync", () => {
         expect(typeof doAsync).toBe("function");
     });
 
-    it("Should call dataCallback and successCallback", () => {
+    it("Should call dataCallback", () => {
         const mock = new MockAdapter(axios);
         mock.onAny().reply(200, []);
 
-        const dataCallback = jest.fn();
-        const successCallback = jest.fn();
-        const errorCallback = jest.fn();
+        const dataCallback = jest.fn().mockReturnValueOnce("hello");
         const options = {
             axiosConfig: {},
             dataCallback,
-            errorCallback,
             mutationTypes: { BASE: "", PEDNING: "" },
-            successCallback,
         };
-        doAsync(store, options).then(() => {
+        doAsync(store, options).then((data) => {
             expect(dataCallback.mock.calls.length).toBe(1);
-            expect(successCallback.mock.calls.length).toBe(1);
+            expect(data).toBe("hello");
         });
     });
 
@@ -43,7 +39,6 @@ describe("doAsync", () => {
         mock.onAny().reply(200, []);
 
         const dataCallback = jest.fn();
-        const successCallback = jest.fn();
 
         const options = {
             axiosConfig: {},
@@ -51,7 +46,6 @@ describe("doAsync", () => {
         };
         doAsync(store, options).then(() => {
             expect(dataCallback.mock.calls.length).toBe(0);
-            expect(successCallback.mock.calls.length).toBe(0);
         });
     });
 
@@ -60,18 +54,14 @@ describe("doAsync", () => {
         mock.onAny().reply(500, []);
 
         const dataCallback = jest.fn();
-        const successCallback = jest.fn();
-        const errorCallback = jest.fn();
         const options = {
             axiosConfig: {},
             dataCallback,
-            errorCallback,
             mutationTypes: { BASE: "", PEDNING: "" },
-            successCallback,
         };
 
-        doAsync(store, options).then(() => {
-            expect(errorCallback.mock.calls.length).toBe(1);
+        doAsync(store, options).catch((e) => {
+            expect(e).toBeTruthy();
         });
     });
 
@@ -79,14 +69,12 @@ describe("doAsync", () => {
         const mock = new MockAdapter(axios);
         mock.onAny().reply(500, []);
 
-        const errorCallback = jest.fn();
-
         const options = {
             axiosConfig: {},
             mutationTypes: { BASE: "", PEDNING: "" },
         };
-        doAsync(store, options).then(() => {
-            expect(errorCallback.mock.calls.length).toBe(0);
+        doAsync(store, options).catch((e) => {
+            expect(e).toBeTruthy();
         });
     });
 });

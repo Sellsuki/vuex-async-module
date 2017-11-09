@@ -55,13 +55,9 @@ describe("createVuexAsyncModule", () => {
             dataCallback(data) {
                 return data;
             },
-            successCallback(data) {
-                return data;
-            },
-            errorCallback(error) {
-                return error;
-            },
         };
-        result = asyncModule.actions.getInfoAsync(store, {});
+        asyncModule.actions.getInfoAsync(store, payload).then((data) => {
+            expect(data).toBeTruthy();
+        });
     });
 });

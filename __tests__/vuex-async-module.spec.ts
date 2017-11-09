@@ -50,14 +50,14 @@ describe("createVuexAsyncModule", () => {
         };
         const payload: object = {
             axiosConfig: {
-                url: "//jsonbin.io/b/5a01dc7471fdfc4fe9d09cdb",
+                url: "",
             },
             dataCallback(data) {
                 return data;
             },
         };
-        asyncModule.actions.getInfoAsync(store, payload).then((data) => {
-            expect(data).toBeTruthy();
+        asyncModule.actions.getInfoAsync(store, payload).catch((e) => {
+            expect(e).toBeTruthy();
         });
     });
 });

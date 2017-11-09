@@ -21,7 +21,7 @@ const doAsync = (store, { axiosConfig, dataCallback, mutationTypes }): any => {
   })
   .catch((error) => {
     store.commit(mutationTypes.BASE, { type: mutationTypes.PENDING, value: false });
-    store.commit(mutationTypes.BASE, { type: mutationTypes.FAILURE, statusCode: error.response.status });
+    store.commit(mutationTypes.BASE, { type: mutationTypes.FAILURE, statusCode: error.status });
 
     // if (errorCallback) {
     //   errorCallback(error);

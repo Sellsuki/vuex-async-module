@@ -1,7 +1,7 @@
 # vuex-async-module
 
 [![NPM version](https://img.shields.io/npm/v/vuex-async-module.svg)](https://www.npmjs.com/package/vuex-async-module)
-[![Coverage Status](https://coveralls.io/repos/github/Sellsuki/vuex-async-module/badge.svg?branch=master)](https://coveralls.io/github/Sellsuki/vuex-async-module?branch=master)
+[![Coveralls github](https://img.shields.io/coveralls/github/Sellsuki/vuex-async-module.svg)](https://coveralls.io/github/Sellsuki/vuex-async-module?branch=master)
 [![Build Status](https://travis-ci.org/Sellsuki/vuex-async-module.svg?branch=master)](https://travis-ci.org/Sellsuki/vuex-async-module)
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 

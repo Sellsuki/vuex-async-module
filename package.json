@@ -62,6 +62,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
+    "axios-mock-adapter": "^1.9.0",
     "change-case": "^3.0.1"
   },
   "jest": {

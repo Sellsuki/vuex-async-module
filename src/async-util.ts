@@ -23,7 +23,7 @@ const doAsync = (store, { axiosConfig, beforeSave, onSuccess, onError, mutationT
     store.commit(mutationTypes.BASE, { type: mutationTypes.PENDING, value: false });
     store.commit(mutationTypes.BASE, { type: mutationTypes.FAILURE, statusCode: error.status });
 
-    if (onError && typeof onSuccess === "function") {
+    if (onError && typeof onError === "function") {
       onError(error);
     } else {
       return Promise.reject(error);

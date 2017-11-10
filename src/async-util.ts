@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const doAsync = (store, { axiosConfig, dataCallback, successCallback, errorCallback, mutationTypes }) => {
+const doAsync = (store, { axiosConfig, dataCallback, mutationTypes }): any => {
   store.commit(mutationTypes.BASE, { type: mutationTypes.PENDING, value: true });
   return axios(axiosConfig)
     .then((response) => {
@@ -13,17 +13,20 @@ const doAsync = (store, { axiosConfig, dataCallback, successCallback, errorCallb
       store.commit(mutationTypes.BASE, { type: mutationTypes.SUCCESS, data, statusCode: response.status });
       store.commit(mutationTypes.BASE, { type: mutationTypes.PENDING, value: false });
 
-      if (successCallback) {
-        successCallback(data);
-      }
+      // if (successCallback) {
+      //   successCallback(data);
+      // }
+
+      return Promise.resolve(data);
   })
   .catch((error) => {
     store.commit(mutationTypes.BASE, { type: mutationTypes.PENDING, value: false });
-    store.commit(mutationTypes.BASE, { type: mutationTypes.FAILURE, statusCode: error.response.status });
+    store.commit(mutationTypes.BASE, { type: mutationTypes.FAILURE, statusCode: error.status });
 
-    if (errorCallback) {
-      errorCallback(error);
-    }
+    // if (errorCallback) {
+    //   errorCallback(error);
+    // }
+    return Promise.reject(error);
   });
 };
 

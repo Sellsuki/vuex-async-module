@@ -1,6 +1,6 @@
 {
   "name": "vuex-async-module",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Example git project that is used for typescript libraries as a starter pack",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -46,6 +46,7 @@
   "devDependencies": {
     "@types/jest": "^20.0.7",
     "@types/node": "^8.0.24",
+    "axios-mock-adapter": "^1.9.0",
     "browserify": "^14.4.0",
     "delete-empty": "^1.0.1",
     "dts-bundle": "^0.7.3",

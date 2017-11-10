@@ -1,6 +1,11 @@
 import { camelCase, upperCaseFirst } from "change-case";
 import doAsync from "./async-util";
 
+type ActionFunc = (store, payload: IAsyncActionPayload) => any;
+type BeforeSaveFunc = (data: object, state: object) => object;
+type OnSuccessFunc = (data: object) => any;
+type OnErrorFunc = (error: any) => any;
+
 interface IAsyncType {
     BASE: string;
     SUCCESS: string;
@@ -11,15 +16,11 @@ interface IAsyncType {
     stateKey: string;
 }
 
-type ActionFunc = (store, payload: IAsyncActionPayload) => any;
-
-type DataCallbackFunc = (data: object, state: object) => object;
-type SuccessCallbackFunc = (data: object) => any;
-type ErrorCallbackFunc = (error: any) => any;
-
 interface IAsyncActionPayload {
     axiosConfig: object;
-    dataCallback: DataCallbackFunc;
+    beforeSave: BeforeSaveFunc;
+    onError: OnErrorFunc;
+    onSuccess: OnSuccessFunc;
 }
 
 const createAsyncType = (typeName: string): IAsyncType => {
@@ -34,7 +35,7 @@ const createAsyncType = (typeName: string): IAsyncType => {
     };
 };
 
-const createMutations = (type: IAsyncType) => {
+const createMutations = (type: IAsyncType): any => {
     const mutations: any = {};
     mutations[type.BASE] = (state, payload) => {
         switch (payload.type) {
@@ -58,9 +59,9 @@ const createMutations = (type: IAsyncType) => {
     return mutations;
 };
 
-const createGetters = (name: string) => {
+const createGetters = (name: string): any => {
     const getters: any = {};
-    getters[camelCase(name)] = (state) => {
+    getters[`${camelCase(name)}State`] = (state) => {
         return {
             data: state.data,
             pending: state.pending,
@@ -70,27 +71,32 @@ const createGetters = (name: string) => {
     return getters;
 };
 
-const createActions = (name: string, type: IAsyncType) => {
+const createActions = (name: string, type: IAsyncType): any => {
     const actions: any = {};
     const action: ActionFunc = (store, payload: IAsyncActionPayload) => {
+        const { axiosConfig, beforeSave, onSuccess, onError } = payload;
         return doAsync(
             store, {
-            ...payload,
+            axiosConfig,
+            beforeSave,
             mutationTypes: type,
+            onError,
+            onSuccess,
         });
     };
 
-    actions[camelCase(`get${name}Async`)] = action;
+    actions[camelCase(`request${name}Async`)] = action;
     return actions;
 };
 
-export const createVuexAsyncModule = (name: string) => {
+export const createVuexAsyncModule = (name: string): any => {
     const Name = upperCaseFirst(name);
-    const TYPE: IAsyncType = createAsyncType(`GET_${Name.toUpperCase()}_ASYNC`);
+    const ACTION_TYPE: IAsyncType = createAsyncType(`GET_${Name.toUpperCase()}_ASYNC`);
+    const MUTATION_TYPE: IAsyncType = createAsyncType(`SET_${Name.toUpperCase()}_ASYNC`);
     return {
-        actions: createActions(Name, TYPE),
+        actions: createActions(Name, ACTION_TYPE),
         getters: createGetters(Name),
-        mutations: createMutations(TYPE),
+        mutations: createMutations(MUTATION_TYPE),
         state: {
             data: null,
             pending: false,

@@ -19,8 +19,8 @@ interface IAsyncType {
 interface IAsyncActionPayload {
     axiosConfig: object;
     beforeSave: BeforeSaveFunc;
-    onSuccess: OnSuccessFunc;
     onError: OnErrorFunc;
+    onSuccess: OnSuccessFunc;
 }
 
 const createAsyncType = (typeName: string): IAsyncType => {
@@ -79,9 +79,9 @@ const createActions = (name: string, type: IAsyncType): any => {
             store, {
             axiosConfig,
             beforeSave,
-            onSuccess,
-            onError,
             mutationTypes: type,
+            onError,
+            onSuccess,
         });
     };
 

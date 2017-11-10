@@ -5,7 +5,9 @@
 [![Build Status](https://travis-ci.org/Sellsuki/vuex-async-module.svg?branch=master)](https://travis-ci.org/Sellsuki/vuex-async-module)
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 
-The idea and mainly code in this project have come from this [article](https://medium.com/@lachlanmiller_52885/reducing-vuex-boilerplate-for-ajax-calls-1cd4a74cef26).
+## What is this ??
+* The idea and mainly code in this project have come from this [article](https://medium.com/@lachlanmiller_52885/reducing-vuex-boilerplate-for-ajax-calls-1cd4a74cef26).
+* Shortly รt's about how to reduce vuex boilerplate with "call — pending — success — failure pattern".
 
 ## Install
 

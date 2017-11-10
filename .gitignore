@@ -1,5 +1,9 @@
 *
+!package-lock.json
 !yarn.lock
+!example/**/*
+!example/
+example/**/node_modules/
 !src/
 !src/**/*
 !*.js

@@ -121,7 +121,7 @@ export default {
 }
 ```
 
-* Handle action with promise object
+* Handle action with promise using then, catch
 ```js
 import {mapActions} from 'vuex'
 
@@ -138,6 +138,28 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    }
+  }
+}
+```
+
+* Handle action with promise using await [2]
+```js
+import {mapActions} from 'vuex'
+
+export default {
+  methods: {
+    ...mapActions(['requestInfoAsync']),
+    getInfo () {
+      try {
+        await this.requestInfoAsync({
+          axiosConfig: {
+            url: '//jsonbin.io/b/5a01dc7471fdfc4fe9d09cdb'
+          }
+        })
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
@@ -175,3 +197,20 @@ We provided a lot of way using our libary including.<br />
 * Create vuex store by grouping module (by code **Compiled as one module) [Click]
 * Create vuex store by grouping module (by module **Compiled as seperated modules) [Click]
 * How to handle action using promise and callback [Click]
+
+----------------------------------------
+## Unit Test [For Contributors]
+
+If you clone this repo and did some changes do not forget to update the test file then..
+
+Test via npm
+
+```javascript
+npm run test
+```
+
+Test via yarn
+
+```javascript
+yarn test
+```

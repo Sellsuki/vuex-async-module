@@ -20,26 +20,26 @@ describe("createVuexAsyncModule", () => {
         expect(typeof asyncModule.state.pending).toBe("boolean");
         expect(typeof asyncModule.state.statusCode).toBe("number");
 
-        expect(typeof asyncModule.getters.info).toBe("function");
+        expect(typeof asyncModule.getters.infoState).toBe("function");
 
-        expect(typeof asyncModule.actions.getInfoAsync).toBe("function");
+        expect(typeof asyncModule.actions.requestInfoAsync).toBe("function");
 
-        expect(typeof asyncModule.mutations.GET_INFO_ASYNC).toBe("function");
+        expect(typeof asyncModule.mutations.SET_INFO_ASYNC).toBe("function");
 
-        let result = asyncModule.mutations.GET_INFO_ASYNC({}, {
-            type: "GET_INFO_ASYNC_PENDING",
+        let result = asyncModule.mutations.SET_INFO_ASYNC({}, {
+            type: "SET_INFO_ASYNC_PENDING",
             value: null,
         });
         expect(result).toBeNull();
 
-        result = asyncModule.mutations.GET_INFO_ASYNC({}, {
+        result = asyncModule.mutations.SET_INFO_ASYNC({}, {
             data: "data",
-            type: "GET_INFO_ASYNC_SUCCESS",
+            type: "SET_INFO_ASYNC_SUCCESS",
         });
         expect(result).toEqual("data");
 
-        result = asyncModule.mutations.GET_INFO_ASYNC({}, {
-            type: "GET_INFO_ASYNC_FAILURE",
+        result = asyncModule.mutations.SET_INFO_ASYNC({}, {
+            type: "SET_INFO_ASYNC_FAILURE",
         });
         expect(result).toBeNull();
 
@@ -56,7 +56,7 @@ describe("createVuexAsyncModule", () => {
                 return data;
             },
         };
-        asyncModule.actions.getInfoAsync(store, payload).catch((e) => {
+        asyncModule.actions.requestInfoAsync(store, payload).catch((e) => {
             expect(e).toBeTruthy();
         });
     });

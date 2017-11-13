@@ -2,7 +2,7 @@ import { camelCase, upperCaseFirst } from "change-case";
 import doAsync from "./async-util";
 
 type ActionFunc = (store, payload: IAsyncActionPayload) => any;
-type BeforeSaveFunc = (data: object, state: object) => object;
+type BeforeSaveFunc = (data: any, state: object) => any;
 type OnSuccessFunc = (data: object) => any;
 type OnErrorFunc = (error: any) => any;
 

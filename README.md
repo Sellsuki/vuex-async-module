@@ -22,13 +22,13 @@
 ## Installation
 Install via npm
 
-```javascript
+```bash
 npm install vuex-async-module
 ```
 
 Install via yarn
 
-```javascript
+```bash
 yarn add vuex-async-module
 ```
 
@@ -205,12 +205,12 @@ If you clone this repo and did some changes do not forget to update the test fil
 
 Test via npm
 
-```javascript
+```bash
 npm run test
 ```
 
 Test via yarn
 
-```javascript
+```bash
 yarn test
 ```

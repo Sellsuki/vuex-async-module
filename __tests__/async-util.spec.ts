@@ -18,45 +18,76 @@ describe("doAsync", () => {
         expect(typeof doAsync).toBe("function");
     });
 
-    it("Should call dataCallback", () => {
+    it("Should call beforeSave", () => {
         const mock = new MockAdapter(axios);
         mock.onAny().reply(200, []);
 
-        const dataCallback = jest.fn().mockReturnValueOnce("hello");
+        const beforeSave = jest.fn().mockReturnValueOnce("hello");
         const options = {
             axiosConfig: {},
-            dataCallback,
+            beforeSave,
             mutationTypes: { BASE: "", PEDNING: "" },
         };
         doAsync(store, options).then((data) => {
-            expect(dataCallback.mock.calls.length).toBe(1);
+            expect(beforeSave.mock.calls.length).toBe(1);
             expect(data).toBe("hello");
         });
     });
 
-    it("Should't call dataCallback and successCallback when not passing functions to it.", () => {
+    it("Should't call beforeSave because not passing through.", () => {
         const mock = new MockAdapter(axios);
         mock.onAny().reply(200, []);
 
-        const dataCallback = jest.fn();
+        const beforeSave = jest.fn();
 
         const options = {
             axiosConfig: {},
             mutationTypes: { BASE: "", PEDNING: "" },
         };
+
         doAsync(store, options).then(() => {
-            expect(dataCallback.mock.calls.length).toBe(0);
+            expect(beforeSave.mock.calls.length).toBe(0);
         });
     });
 
-    it("Should call errorCallback", () => {
+    it("Should return promise if not passing onSuccess callback.", () => {
+        const mock = new MockAdapter(axios);
+        mock.onAny().reply(200, []);
+
+        const options = {
+            axiosConfig: {},
+            mutationTypes: { BASE: "", PEDNING: "" },
+        };
+
+        doAsync(store, options).then(() => {
+            expect(e).toBeTruthy();
+        });
+    });
+
+    it("Shouldn't return promise if not passing onSuccess callback.", () => {
+        const mock = new MockAdapter(axios);
+        mock.onAny().reply(200, []);
+
+        let success = false;
+        const options = {
+            axiosConfig: {},
+            onSuccess: () => {
+                success = true
+            },
+            mutationTypes: { BASE: "", PEDNING: "" },
+        };
+
+        doAsync(store, options).then(() => {
+            expect(success).toBe(true);
+        });
+    });
+
+    it("Should return on catch", () => {
         const mock = new MockAdapter(axios);
         mock.onAny().reply(500, []);
 
-        const dataCallback = jest.fn();
         const options = {
             axiosConfig: {},
-            dataCallback,
             mutationTypes: { BASE: "", PEDNING: "" },
         };
 
@@ -69,12 +100,16 @@ describe("doAsync", () => {
         const mock = new MockAdapter(axios);
         mock.onAny().reply(500, []);
 
+        let error = false;
         const options = {
             axiosConfig: {},
+            onError: () => {
+                error = true
+            },
             mutationTypes: { BASE: "", PEDNING: "" },
         };
-        doAsync(store, options).catch((e) => {
-            expect(e).toBeTruthy();
+        doAsync(store, options).then((e) => {
+            expect(error).toBe(true);
         });
     });
 });

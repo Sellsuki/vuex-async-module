@@ -2,7 +2,7 @@ import { camelCase, upperCaseFirst } from "change-case";
 import doAsync from "./async-util";
 
 type ActionFunc = (store, payload: IAsyncActionPayload) => any;
-type BeforeSaveFunc = (data: object, state: object) => object;
+type BeforeSaveFunc = (data: any, state: object) => any;
 type OnSuccessFunc = (data: object) => any;
 type OnErrorFunc = (error: any) => any;
 
@@ -91,11 +91,12 @@ const createActions = (name: string, type: IAsyncType): any => {
 
 export const createVuexAsyncModule = (name: string): any => {
     const Name = upperCaseFirst(name);
-    const TYPE: IAsyncType = createAsyncType(`GET_${Name.toUpperCase()}_ASYNC`);
+    const ACTION_TYPE: IAsyncType = createAsyncType(`GET_${Name.toUpperCase()}_ASYNC`);
+    const MUTATION_TYPE: IAsyncType = createAsyncType(`SET_${Name.toUpperCase()}_ASYNC`);
     return {
-        actions: createActions(Name, TYPE),
+        actions: createActions(Name, ACTION_TYPE),
         getters: createGetters(Name),
-        mutations: createMutations(TYPE),
+        mutations: createMutations(MUTATION_TYPE),
         state: {
             data: null,
             pending: false,

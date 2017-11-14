@@ -10,8 +10,8 @@ const doAsync = (store, { axiosConfig, beforeSave, onSuccess, onError, mutationT
         data = beforeSave(response, store.state);
       }
 
-      store.commit(mutationTypes.BASE, { type: mutationTypes.SUCCESS, data, statusCode: response.status });
       store.commit(mutationTypes.BASE, { type: mutationTypes.PENDING, value: false });
+      store.commit(mutationTypes.BASE, { type: mutationTypes.SUCCESS, data, statusCode: response.status });
 
       if (onSuccess && typeof onSuccess === "function") {
         onSuccess(data);

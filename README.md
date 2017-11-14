@@ -18,7 +18,6 @@
 * axios
 
 ----------------------------------------
-
 ## Installation
 Install via npm
 
@@ -54,26 +53,18 @@ export const store = new Vuex.Store({
 })
 ```
 
-### mapGetters
-One getter available for each module and it represent a state itself.<br />
-The name of getter is module name then follow by "State" for example module "info" and getter will be "infoState"
-
-```vue
-<template>
-  <h1>{{infoState.something}}</h1>
-</template>
-
-import {mapGetters} from 'vuex'
-
-export default {
-  computed: {
-    ...mapGetters(['infoState'])
-  }
-}
+### State
+This is module state created by createVuexAsyncModule
+```js
+  state: {
+      data: null, // data from AJAX call, You can customize this by using beforeSave callback (look at next section)
+      pending: false, // loading status (true = loading, false = done)
+      statusCode: 0, // response status code
+  },
 ```
 
 ### mapActions
-One action available for each state and it can be customize for any endpoint you need.<br />
+One action available for each module and it can be customize for any endpoint you need.<br />
 The name of action is "request" follow by module name then "Async" for example module "info" and action will be "requestInfoAsync"<br />
 Once you call action with provided endpoint the function will save reponsed data on state immediately.<br />
 Note that axiosConfig is the same config from axios libary itself.
@@ -185,6 +176,30 @@ export default {
         }
       })
     }
+  }
+}
+```
+
+### mapGetters
+When data from AJAX call saved to state then you can map getter to sync your data to the template.<br />
+One getter available for each module and it represent a state itself.<br />
+The name of getter is module name then follow by "State" for example module "info" and getter will be "infoState"
+
+```vue
+<template>
+  <div v-if="infoState.pending === false">
+    <h1>{{infoState.data.something}}</h1>
+  </div>
+  <div v-else>
+    Loading...
+  </div>
+</template>
+
+import {mapGetters} from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters(['infoState'])
   }
 }
 ```

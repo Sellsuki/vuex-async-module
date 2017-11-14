@@ -63,6 +63,7 @@ The name of getter is module name then follow by "State" for example module "inf
   <h1>{{infoState.something}}</h1>
 </template>
 
+<script>
 import {mapGetters} from 'vuex'
 
 export default {
@@ -70,6 +71,7 @@ export default {
     ...mapGetters(['infoState'])
   }
 }
+</script>
 ```
 
 ### mapActions
@@ -78,7 +80,8 @@ The name of action is "request" follow by module name then "Async" for example m
 Once you call action with provided endpoint the function will save reponsed data on state immediately.<br />
 Note that axiosConfig is the same config from axios libary itself.
 
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -94,10 +97,12 @@ export default {
     }
   }
 }
+</script>
 ```
 
 * Customize data before it save to module state.
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -119,10 +124,12 @@ export default {
     }
   }
 }
+</script>
 ```
 
 * Handle action with promise using then, catch
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -141,10 +148,12 @@ export default {
     }
   }
 }
+</script>
 ```
 
 * Handle action with promise using await [2]
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -163,10 +172,12 @@ export default {
     }
   }
 }
+</script>
 ```
 
 * Handle action with callback
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -187,6 +198,7 @@ export default {
     }
   }
 }
+</script>
 ```
 
 ----------------------------------------

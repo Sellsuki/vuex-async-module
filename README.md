@@ -21,13 +21,13 @@
 ## Installation
 Install via npm
 
-```javascript
+```bash
 npm install vuex-async-module
 ```
 
 Install via yarn
 
-```javascript
+```bash
 yarn add vuex-async-module
 ```
 
@@ -63,13 +63,34 @@ This is module state created by createVuexAsyncModule
   },
 ```
 
+### mapGetters
+One getter available for each module and it represent a state itself.<br />
+The name of getter is module name then follow by "State" for example module "info" and getter will be "infoState"
+
+```vue
+<template>
+  <h1>{{infoState.something}}</h1>
+</template>
+
+<script>
+import {mapGetters} from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters(['infoState'])
+  }
+}
+</script>
+```
+
 ### mapActions
 One action available for each module and it can be customize for any endpoint you need.<br />
 The name of action is "request" follow by module name then "Async" for example module "info" and action will be "requestInfoAsync"<br />
 Once you call action with provided endpoint the function will save reponsed data on state immediately.<br />
 Note that axiosConfig is the same config from axios libary itself.
 
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -85,10 +106,12 @@ export default {
     }
   }
 }
+</script>
 ```
 
 * Customize data before it save to module state.
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -110,10 +133,12 @@ export default {
     }
   }
 }
+</script>
 ```
 
 * Handle action with promise using then, catch
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -132,10 +157,12 @@ export default {
     }
   }
 }
+</script>
 ```
 
 * Handle action with promise using await [2]
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -154,10 +181,12 @@ export default {
     }
   }
 }
+</script>
 ```
 
 * Handle action with callback
-```js
+```vue
+<script>
 import {mapActions} from 'vuex'
 
 export default {
@@ -178,6 +207,7 @@ export default {
     }
   }
 }
+</script>
 ```
 
 ### mapGetters
@@ -220,12 +250,12 @@ If you clone this repo and did some changes do not forget to update the test fil
 
 Test via npm
 
-```javascript
+```bash
 npm run test
 ```
 
 Test via yarn
 
-```javascript
+```bash
 yarn test
 ```

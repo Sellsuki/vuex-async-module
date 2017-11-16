@@ -6,7 +6,7 @@
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 
 ## What is this about ??
-* The idea and mainly code in this project have come from this [article](https://medium.com/@lachlanmiller_52885/reducing-vuex-boilerplate-for-ajax-calls-1cd4a74cef26).
+* The idea and mainly code in this project have come from this [article](https://medium.com/@lachlanmiller_52885/reducing-vuex-boilerplate-for-ajax-calls-1cd4a74cef26) by [@lachlanmiller_52885](https://medium.com/@lachlanmiller_52885).
 * Shortly it's about how to reduce vuex boilerplate with "call — pending — success — failure pattern".
 * Each module provide each state of vuex as a API including data, status of request and some hook function to customize your state.
 * For more information take a look at our example.

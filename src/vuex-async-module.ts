@@ -91,10 +91,9 @@ const createActions = (name: string, type: IAsyncType): any => {
 
 export const createVuexAsyncModule = (name: string): any => {
     const Name = upperCaseFirst(name);
-    const ACTION_TYPE: IAsyncType = createAsyncType(`GET_${Name.toUpperCase()}_ASYNC`);
     const MUTATION_TYPE: IAsyncType = createAsyncType(`SET_${Name.toUpperCase()}_ASYNC`);
     return {
-        actions: createActions(Name, ACTION_TYPE),
+        actions: createActions(Name, MUTATION_TYPE),
         getters: createGetters(Name),
         mutations: createMutations(MUTATION_TYPE),
         state: {

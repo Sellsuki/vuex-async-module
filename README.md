@@ -4,6 +4,8 @@
 [![Coveralls github](https://img.shields.io/coveralls/github/Sellsuki/vuex-async-module.svg)](https://coveralls.io/github/Sellsuki/vuex-async-module?branch=master)
 [![Build Status](https://travis-ci.org/Sellsuki/vuex-async-module.svg?branch=master)](https://travis-ci.org/Sellsuki/vuex-async-module)
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0b0c7118cf2569e96931/maintainability)](https://codeclimate.com/github/Sellsuki/vuex-async-module/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/0b0c7118cf2569e96931/test_coverage)](https://codeclimate.com/github/Sellsuki/vuex-async-module/test_coverage)
 
 ## What is this about ??
 * The idea and mainly code in this project have come from this [article](https://medium.com/@lachlanmiller_52885/reducing-vuex-boilerplate-for-ajax-calls-1cd4a74cef26) by [@lachlanmiller_52885](https://medium.com/@lachlanmiller_52885).

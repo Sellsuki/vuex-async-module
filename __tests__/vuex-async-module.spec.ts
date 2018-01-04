@@ -1,8 +1,8 @@
 "use strict";
 
 import "jest";
-import { createVuexAsyncModule } from "../src";
 import { log } from "util";
+import { createVuexAsyncModule } from "../src";
 
 describe("createVuexAsyncModule", () => {
     it("Should be a function", () => {
@@ -66,7 +66,7 @@ describe("createVuexAsyncModule", () => {
         const asyncModule = createVuexAsyncModule("info", {
             actions: {
                 setDataAction({commit}, data: any) {
-                    commit("setData", data);
+                    commit("setDatMutation", data);
                 },
             },
             mutations: {

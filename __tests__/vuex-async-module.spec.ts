@@ -62,17 +62,25 @@ describe("createVuexAsyncModule", () => {
         });
     });
 
-    it("Should be able to return vuex object (have options)", () => {
+    it("Should be able to return vuex object (have full options)", () => {
         const asyncModule = createVuexAsyncModule("info", {
             actions: {
-                setDataAction({commit}, data: any) {
-                    commit("setDataMutation", data);
+                addTodo({commit}, data: any) {
+                    commit("ADD_TODO", data);
+                },
+            },
+            getters: {
+                todos(state) {
+                    return state.data;
                 },
             },
             mutations: {
-                setDataMutation(state, data: any) {
+                ADD_TODO(state, data: any) {
                     state.data = data;
                 },
+            },
+            state: {
+                todos: [],
             },
         });
         expect(typeof asyncModule).toBe("object");
@@ -81,20 +89,19 @@ describe("createVuexAsyncModule", () => {
         expect(asyncModule).toHaveProperty("actions");
         expect(asyncModule).toHaveProperty("mutations");
 
-        expect(typeof asyncModule.actions.setDataAction).toBe("function");
-        expect(typeof asyncModule.mutations.setDataMutation).toBe("function");
-
-        expect(typeof asyncModule.state.data).toBe("object");
-
         expect(typeof asyncModule.state.data).toBe("object");
         expect(typeof asyncModule.state.pending).toBe("boolean");
         expect(typeof asyncModule.state.statusCode).toBe("number");
+        expect(typeof asyncModule.state.todos).toBe("object");
 
         expect(typeof asyncModule.getters.infoState).toBe("function");
+        expect(typeof asyncModule.getters.todos).toBe("function");
 
         expect(typeof asyncModule.actions.requestInfoAsync).toBe("function");
+        expect(typeof asyncModule.actions.addTodo).toBe("function");
 
         expect(typeof asyncModule.mutations.SET_INFO_ASYNC).toBe("function");
+        expect(typeof asyncModule.mutations.ADD_TODO).toBe("function");
 
         let result = asyncModule.mutations.SET_INFO_ASYNC({}, {
             type: "SET_INFO_ASYNC_PENDING",

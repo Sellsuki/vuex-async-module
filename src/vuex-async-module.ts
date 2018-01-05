@@ -93,13 +93,18 @@ export const createVuexAsyncModule = (name: string, options?: any): any => {
     const Name = upperCaseFirst(name);
     const MUTATION_TYPE: IAsyncType = createAsyncType(`SET_${Name.toUpperCase()}_ASYNC`);
     const actions = (options && options.actions) ? options.actions : {};
+    const getters = (options && options.getters) ? options.getters : {};
     const mutations = (options && options.mutations) ? options.mutations : {};
+    const state = (options && options.state) ? options.state : {};
     return {
         actions: {
             ...createActions(Name, MUTATION_TYPE),
             ...actions,
         },
-        getters: createGetters(Name),
+        getters: {
+            ...createGetters(Name),
+            ...getters,
+        },
         mutations: {
             ...createMutations(MUTATION_TYPE),
             ...mutations,
@@ -108,6 +113,7 @@ export const createVuexAsyncModule = (name: string, options?: any): any => {
             data: null,
             pending: false,
             statusCode: 0,
+            ...state,
         },
     };
 };

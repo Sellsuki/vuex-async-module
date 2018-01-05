@@ -66,11 +66,11 @@ describe("createVuexAsyncModule", () => {
         const asyncModule = createVuexAsyncModule("info", {
             actions: {
                 setDataAction({commit}, data: any) {
-                    commit("setDatMutation", data);
+                    commit("setDataMutation", data);
                 },
             },
             mutations: {
-                setDatMutation(state, data: any) {
+                setDataMutation(state, data: any) {
                     state.data = data;
                 },
             },
@@ -82,7 +82,7 @@ describe("createVuexAsyncModule", () => {
         expect(asyncModule).toHaveProperty("mutations");
 
         expect(typeof asyncModule.actions.setDataAction).toBe("function");
-        expect(typeof asyncModule.mutations.setDatMutation).toBe("function");
+        expect(typeof asyncModule.mutations.setDataMutation).toBe("function");
 
         expect(typeof asyncModule.state.data).toBe("object");
 
